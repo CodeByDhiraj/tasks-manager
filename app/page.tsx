@@ -75,7 +75,7 @@ export default function Home() {
   };
 
   const saveEdit = async (id: any) => {
-    const confirmSave = confirm("Kya aap is task ko update karna chahte hain?");
+    const confirmSave = confirm("Do you want to update this task?");
     if (confirmSave) {
       const { error } = await supabase.from('tasks').update({ 
         task_title: editValue 
@@ -89,7 +89,7 @@ export default function Home() {
   };
 
   const deleteTask = async (id: any) => {
-    if (confirm("Kya aap is task ko hamesha ke liye delete karna chahte hain?")) {
+    if (confirm("Do you want to delete this task?")) {
       await supabase.from('tasks').delete().eq('id', id);
     }
   };
@@ -97,8 +97,6 @@ export default function Home() {
  const exportToExcel = () => {
     if (tasks.length === 0) return;
 
-    // 1. Pehle tasks ko Project Name ke hisaab se sort karein
-    // Taaki Excel mein ek project ke saare tasks ek saath aayein
     const sortedTasks = [...tasks].sort((a, b) => 
       (a.project_name || "").localeCompare(b.project_name || "")
     );
@@ -107,7 +105,7 @@ export default function Home() {
     const reportData = sortedTasks.map((t, index) => ({
       "SR. NO.": index + 1,
       "DATE": new Date(t.created_at).toLocaleDateString('en-GB'),
-      "PROJECT MODULE": (t.project_name || "OTHERS").toUpperCase(), // Grouping visualization ke liye
+      "PROJECT MODULE": (t.project_name || "OTHERS").toUpperCase(), // Grouping visualization
       "TASK DESCRIPTION": t.task_title,
       "CREATED BY": t.created_by,
       "EDITED BY": t.last_edited_by || "Original",
@@ -306,8 +304,8 @@ export default function Home() {
               <p className="text-[10px] font-black tracking-[0.25em] text-slate-500 dark:text-blue-400 uppercase">System Status: Operational</p>
             </div>
             <div className="text-center space-y-1">
-              <h3 className="text-xs font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.4em]">Maruti Operational Terminal <span className="text-blue-600/50">v1.2.0</span></h3>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Engineered with precision by <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent font-black ml-1.5 hover:opacity-80 transition-opacity">Dhiraj Dev</span></p>
+              <h3 className="text-xs font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.4em]">Maruti Operational Terminal <span className="text-blue-600/50">v1.1.0</span></h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Engineered with precision by <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent font-black ml-1.5 hover:opacity-80 transition-opacity">EN-2C</span></p>
             </div>
           </div>
         </footer>
